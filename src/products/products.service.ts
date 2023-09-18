@@ -1,17 +1,19 @@
 import { Injectable } from '@nestjs/common';
 import { CreateProductInput } from './dto/create-product.input/create-product.input';
+import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
 export class ProductsService {
+  constructor(private prisma: PrismaService) {}
   async findAll() {
-    return [];
+    return this.prisma.product.findMany();
   }
 
   async findOne(id: string) {
-    return null;
+    return this.prisma.product.findFirst({ where: { id } });
   }
 
-  async create(createCoffeeInput: CreateProductInput) {
-    return null;
+  async create(createProductInput: CreateProductInput) {
+    return this.prisma.product.create({ data: createProductInput });
   }
 }
