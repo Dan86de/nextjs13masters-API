@@ -1,0 +1,33 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+"""Product model"""
+type Product {
+  """An unique identifier"""
+  id: ID!
+  name: String!
+  description: String!
+  price: Float!
+  image: String!
+}
+
+type Query {
+  """Get all products"""
+  products: [Product!]!
+
+  """Get single product by ID"""
+  product(id: ID!): Product
+}
+
+type Mutation {
+  createProduct(createProductInput: CreateProductInput!): Product
+}
+
+"""Create product input object type."""
+input CreateProductInput {
+  name: String!
+  description: String!
+  price: Float!
+  image: String!
+}
