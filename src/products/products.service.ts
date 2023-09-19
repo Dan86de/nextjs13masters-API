@@ -6,7 +6,7 @@ import { CreateProductInput } from './dto/create-product.input/create-product.in
 export class ProductsService {
   constructor(private prisma: PrismaService) {}
   async findAll() {
-    return this.prisma.product.findMany();
+    return this.prisma.product.findMany({ include: { categories: true } });
   }
 
   async findOne(id: string) {

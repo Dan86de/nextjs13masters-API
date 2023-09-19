@@ -7,18 +7,7 @@ import { ProductsService } from './products.service';
 export class ProductsResolver {
   constructor(private readonly productService: ProductsService) {}
   @Query(() => [Product], { name: 'products', description: 'Get all products' })
-  async findAll(): Promise<
-    Pick<
-      Product,
-      | 'id'
-      | 'name'
-      | 'description'
-      | 'price'
-      | 'image'
-      | 'createdAt'
-      | 'updatedAt'
-    >[]
-  > {
+  async findAll() {
     return this.productService.findAll();
   }
   @Query(() => Product, {

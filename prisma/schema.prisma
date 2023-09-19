@@ -26,7 +26,7 @@ model Product {
 
 model Category {
   id       String    @id @default(uuid())
-  name     String
+  name     String    @unique
   products Product[]
 
   createdAt DateTime @default(now())
@@ -35,7 +35,7 @@ model Category {
 
 model Collection {
   id       String    @id @default(uuid())
-  name     String
+  name     String    @unique
   products Product[]
 
   createdAt DateTime @default(now())

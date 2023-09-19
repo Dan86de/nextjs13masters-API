@@ -16,11 +16,11 @@ export class Product {
   @Field(() => [Category], {
     description: 'A list of categories for this product.',
   })
-  category: Category[];
+  categories: Category[];
   @Field(() => [Collection], {
     description: 'A list of collections for this product.',
   })
-  collection: Collection[];
+  collections: Collection[];
   createdAt: Date;
   updatedAt: Date;
 }

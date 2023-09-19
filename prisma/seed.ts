@@ -5,45 +5,33 @@ import * as dotenv from 'dotenv';
 
 const prisma = new PrismaClient();
 
-const fakeProduct = () => {
-  return {
-    id: faker.string.uuid(),
-    name: faker.commerce.productName(),
-    description: faker.commerce.productDescription(),
-    price: parseInt(faker.commerce.price({ min: 100, dec: 0 })),
-    image: faker.image.urlLoremFlickr({ category: 'fashion' }),
-    // check how to generate categories and collections for products
-    categories: {
-      create: [
-        {
-          id: faker.string.uuid(),
-          name: faker.commerce.department(),
-          createdAt: faker.date.past(),
-          updatedAt: faker.date.recent(),
-        },
-      ],
-    },
-    collections: {
-      create: [
-        {
-          id: faker.string.uuid(),
-          name: faker.commerce.department(),
-          createdAt: faker.date.past(),
-          updatedAt: faker.date.recent(),
-        },
-      ],
-    },
-    createdAt: faker.date.past(),
-    updatedAt: faker.date.recent(),
-  };
-};
-
 async function main() {
-  const fakerRounds = 10;
+  const fakerRounds = 50;
   dotenv.config();
   console.log('Seeding...');
   for (let i = 0; i < fakerRounds; i++) {
-    await prisma.product.create({ data: fakeProduct() });
+    await prisma.product.create({
+      data: {
+        name: faker.commerce.product(),
+        description: faker.commerce.productDescription(),
+        price: parseInt(faker.finance.amount(5, 1000, 0)),
+        image: faker.image.url(),
+        categories: {
+          create: {
+            name: faker.commerce.department(),
+            createdAt: faker.date.past(),
+            updatedAt: faker.date.past(),
+          },
+        },
+        collections: {
+          create: {
+            name: faker.commerce.department(),
+            createdAt: faker.date.past(),
+            updatedAt: faker.date.past(),
+          },
+        },
+      },
+    });
   }
 }
 

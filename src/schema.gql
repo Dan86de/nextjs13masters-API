@@ -40,10 +40,10 @@ type Product {
   name: String!
 
   """A list of categories for this product."""
-  category: [Category!]!
+  categories: [Category!]!
 
   """A list of collections for this product."""
-  collection: [Collection!]!
+  collections: [Collection!]!
   description: String!
   price: Float!
   image: String!
