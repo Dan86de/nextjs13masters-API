@@ -11,9 +11,56 @@ datasource db {
 }
 
 model Product {
-  id          String @id @default(uuid())
+  id          String       @id @default(uuid())
   name        String
   description String
   price       Int
   image       String
+  categories  Category[]
+  collections Collection[]
+  order_item  Order_Item[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Category {
+  id       String    @id @default(uuid())
+  name     String
+  products Product[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Collection {
+  id       String    @id @default(uuid())
+  name     String
+  products Product[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Orders {
+  id     String       @id @default(uuid())
+  items  Order_Item[]
+  total  Int
+  status String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Order_Item {
+  id       String  @id @default(uuid())
+  order    Orders  @relation(fields: [orderId], references: [id])
+  product  Product @relation(fields: [productId], references: [id])
+  quantity Int
+  price    Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  orderId   String
+  productId String
 }

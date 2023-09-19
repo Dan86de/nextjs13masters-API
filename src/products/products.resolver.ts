@@ -1,13 +1,24 @@
 import { Args, ID, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { Product } from './entities/product.entity/product.entity';
 import { CreateProductInput } from './dto/create-product.input/create-product.input';
+import { Product } from './entities/product.entity/product.entity';
 import { ProductsService } from './products.service';
 
 @Resolver()
 export class ProductsResolver {
   constructor(private readonly productService: ProductsService) {}
   @Query(() => [Product], { name: 'products', description: 'Get all products' })
-  async findAll(): Promise<Product[]> {
+  async findAll(): Promise<
+    Pick<
+      Product,
+      | 'id'
+      | 'name'
+      | 'description'
+      | 'price'
+      | 'image'
+      | 'createdAt'
+      | 'updatedAt'
+    >[]
+  > {
     return this.productService.findAll();
   }
   @Query(() => Product, {
