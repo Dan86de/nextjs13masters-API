@@ -6,4 +6,5 @@ export class CreateProductInput {
   description: string;
   price: number;
   image: string;
+  product_image: string;
 }

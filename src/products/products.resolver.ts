@@ -21,7 +21,8 @@ export class ProductsResolver {
   @Mutation(() => Product, { name: 'createProduct', nullable: true })
   async create(
     @Args('createProductInput') createProductInput: CreateProductInput,
+    @Args('createProductInput') category_id: string,
   ) {
-    return this.productService.create(createProductInput);
+    return this.productService.create(createProductInput, category_id);
   }
 }
