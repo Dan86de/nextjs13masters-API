@@ -6,12 +6,19 @@ import { CreateProductInput } from './dto/create-product.input/create-product.in
 export class ProductsService {
   constructor(private prisma: PrismaService) {}
   async findAll() {
-    return this.prisma.product.findMany();
+    return await this.prisma.product.findMany({
+      include: {
+        category: true,
+      },
+    });
   }
 
   async findOne(id: string) {
     return this.prisma.product.findFirst({
       where: { id },
+      include: {
+        category: true,
+      },
     });
   }
 

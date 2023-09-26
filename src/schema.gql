@@ -4,72 +4,30 @@
 
 """Product category model"""
 type ProductCategory {
-  id: String!
-  parent_category_id: String!
+  id: ID!
+  parent_category_id: String
   category_name: String!
 }
 
-"""Product collection model"""
-type ProductCollection {
-  id: ID!
-  name: String!
-  Products: [Product!]!
-}
-
-"""Product configuration model"""
-type ProductConfiguration {
-  id: ID!
-}
-
-"""Shopping cart item model"""
-type ShoppingCartItem {
-  id: String!
-  cartId: String!
-  productItemId: String!
-  qty: Float!
-}
-
-"""Order line model"""
-type OrderLine {
-  id: String!
-  productItemId: String!
-  orderId: String!
-  qty: Float!
-  price: Float!
-}
-
-"""Product item model"""
-type ProductItem {
-  id: ID!
-  product: Product!
-  productId: String!
-  SKU: String!
-  qtyInStock: Float!
-  price: Float!
-  productConfigurations: [ProductConfiguration!]!
-  productImages: [String!]!
-  shoppingCartItems: [ShoppingCartItem!]!
-  orderLines: [OrderLine!]!
-}
-
-"""Promotion product model"""
-type PromotionProduct {
-  id: String!
-  promotionId: String!
-  productId: String!
-}
-
-"""Product model"""
+"""Product model."""
 type Product {
+  """Product id."""
   id: ID!
+
+  """Product name."""
   name: String!
+
+  """Product description."""
   description: String!
+
+  """Product category."""
   category: ProductCategory!
-  categoryId: String!
-  collections: [ProductCollection!]!
-  productImage: String!
-  productItems: [ProductItem!]!
-  productPromotions: [PromotionProduct!]!
+
+  """Product category id."""
+  category_id: String!
+
+  """Product image."""
+  product_image: String!
 }
 
 type Query {
@@ -78,6 +36,12 @@ type Query {
 
   """Get single product by ID"""
   product(id: ID!): Product
+
+  """Get all categories"""
+  categories: [ProductCategory!]!
+
+  """Get single category by ID"""
+  category(id: ID!): ProductCategory
 }
 
 type Mutation {

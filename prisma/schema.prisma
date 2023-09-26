@@ -133,7 +133,6 @@ model product_category {
 
 model variation {
   id                 String             @id @default(uuid())
-  category_id        String
   name               String
   product_category   product_category   @relation(fields: [product_categoryId], references: [id])
   product_categoryId String
