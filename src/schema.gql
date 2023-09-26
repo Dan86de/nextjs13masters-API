@@ -30,6 +30,15 @@ type Product {
   product_image: String!
 }
 
+"""Collection model."""
+type Collection {
+  """Collection id."""
+  id: ID!
+
+  """Collection name."""
+  name: ID!
+}
+
 type Query {
   """Get all products"""
   products: [Product!]!
@@ -42,6 +51,12 @@ type Query {
 
   """Get single category by ID"""
   category(id: ID!): ProductCategory
+
+  """Get all collections"""
+  collections: [Collection!]!
+
+  """Get single collection by ID"""
+  collection(collectionId: ID!): Collection
 }
 
 type Mutation {

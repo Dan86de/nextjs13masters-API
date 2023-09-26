@@ -6,18 +6,20 @@ import { CollectionsService } from './collections.service';
 export class CollectionsResolver {
   constructor(private readonly collectionService: CollectionsService) {}
   @Query(() => [Collection], {
-    name: 'categories',
+    name: 'collections',
     description: 'Get all collections',
   })
   async findAll() {
     return await this.collectionService.findAll();
   }
   @Query(() => Collection, {
-    name: 'category',
+    name: 'collection',
     description: 'Get single collection by ID',
     nullable: true,
   })
-  async findOne(@Args('id', { type: () => ID }) id: string) {
-    return this.collectionService.findOne(id);
+  async findOne(
+    @Args('collectionId', { type: () => ID }) collectionId: string,
+  ) {
+    return this.collectionService.findOne(collectionId);
   }
 }

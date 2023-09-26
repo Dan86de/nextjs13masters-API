@@ -5,16 +5,14 @@ import { PrismaService } from 'src/prisma.service';
 export class CollectionsService {
   constructor(private prisma: PrismaService) {}
   async findAll() {
-    return await this.prisma.collection.findMany({
-      include: {
-        products: true,
-      },
-    });
+    return await this.prisma.product_collection.findMany();
   }
 
-  async findOne(id: string) {
-    return this.prisma.collection.findFirst({
-      where: { id },
+  async findOne(collectionId: string) {
+    return this.prisma.collection.findUnique({
+      where: {
+        id: collectionId,
+      },
       include: {
         products: true,
       },

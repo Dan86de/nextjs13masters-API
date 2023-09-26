@@ -6,8 +6,6 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
 import { ProductsModule } from './products/products.module';
 import { CategoriesModule } from './categories/categories.module';
-import { CollectionsResolver } from './collections/collections.resolver';
-import { CollectionsService } from './collections/collections.service';
 import { CollectionsModule } from './collections/collections.module';
 
 @Module({
@@ -21,6 +19,6 @@ import { CollectionsModule } from './collections/collections.module';
     CollectionsModule,
   ],
   controllers: [AppController],
-  providers: [AppService, CollectionsResolver, CollectionsService],
+  providers: [AppService],
 })
 export class AppModule {}

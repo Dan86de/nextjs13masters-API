@@ -4,4 +4,6 @@ import { Field, ID, ObjectType } from '@nestjs/graphql';
 export class Collection {
   @Field(() => ID, { description: 'Collection id.' })
   id: string;
+  @Field(() => ID, { description: 'Collection name.' })
+  name: string;
 }
