@@ -20,6 +20,19 @@ export class ProductsResolver {
     console.log(product);
     return product;
   }
+  @Query(() => [Product], {
+    name: 'productsFromCollection',
+    description: 'Get all products from collection with given id.',
+    nullable: true,
+  })
+  async findAllFromGivenCollection(
+    @Args('collectionId', { type: () => ID }) collectionId: string,
+  ) {
+    const product =
+      await this.productService.findAllFromGivenCollection(collectionId);
+    console.log(product);
+    return product;
+  }
   @Mutation(() => Product, { name: 'createProduct', nullable: true })
   async create(
     @Args('createProductInput') createProductInput: CreateProductInput,
