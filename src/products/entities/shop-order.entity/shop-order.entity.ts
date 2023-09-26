@@ -18,4 +18,6 @@ enum OrderStatus {
   SHIPPED,
   DELIVERED,
   CANCELLED,
+  RETURNED,
+  REFUNDED,
 }

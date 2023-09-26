@@ -2,53 +2,74 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-"""Category model"""
-type Category {
-  """An unique identifier"""
-  id: ID!
-
-  """A list of products for this category"""
-  products: [Product!]!
-  name: String!
-  createdAt: DateTime!
-  updatedAt: DateTime!
+"""Product category model"""
+type ProductCategory {
+  id: String!
+  parent_category_id: String!
+  category_name: String!
 }
 
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
-
-"""Collection model"""
-type Collection {
-  """An unique identifier"""
+"""Product collection model"""
+type ProductCollection {
   id: ID!
-
-  """A list of products for this collection"""
-  products: [Product!]!
   name: String!
-  createdAt: DateTime!
-  updatedAt: DateTime!
+  Products: [Product!]!
+}
+
+"""Product configuration model"""
+type ProductConfiguration {
+  id: ID!
+}
+
+"""Shopping cart item model"""
+type ShoppingCartItem {
+  id: String!
+  cartId: String!
+  productItemId: String!
+  qty: Float!
+}
+
+"""Order line model"""
+type OrderLine {
+  id: String!
+  productItemId: String!
+  orderId: String!
+  qty: Float!
+  price: Float!
+}
+
+"""Product item model"""
+type ProductItem {
+  id: ID!
+  product: Product!
+  productId: String!
+  SKU: String!
+  qtyInStock: Float!
+  price: Float!
+  productConfigurations: [ProductConfiguration!]!
+  productImages: [String!]!
+  shoppingCartItems: [ShoppingCartItem!]!
+  orderLines: [OrderLine!]!
+}
+
+"""Promotion product model"""
+type PromotionProduct {
+  id: String!
+  promotionId: String!
+  productId: String!
 }
 
 """Product model"""
 type Product {
-  """An unique identifier"""
   id: ID!
-
-  """A new product name."""
   name: String!
-
-  """A list of categories for this product."""
-  categories: [Category!]!
-
-  """A list of collections for this product."""
-  collections: [Collection!]!
   description: String!
-  price: Float!
-  image: String!
-  createdAt: DateTime!
-  updatedAt: DateTime!
+  category: ProductCategory!
+  categoryId: String!
+  collections: [ProductCollection!]!
+  productImage: String!
+  productItems: [ProductItem!]!
+  productPromotions: [PromotionProduct!]!
 }
 
 type Query {
@@ -60,13 +81,5 @@ type Query {
 }
 
 type Mutation {
-  createProduct(createProductInput: CreateProductInput!): Product
-}
-
-"""Create product input object type."""
-input CreateProductInput {
-  name: String!
-  description: String!
-  price: Float!
-  image: String!
+  createProduct(createProductInput: String!): Product
 }

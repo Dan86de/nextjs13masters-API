@@ -82,14 +82,30 @@ enum provider {
 }
 
 model product {
-  id                 String              @id @default(uuid())
+  id                 String               @id @default(uuid())
   name               String
   description        String
-  category           product_category    @relation(fields: [category_id], references: [id])
+  category           product_category     @relation(fields: [category_id], references: [id])
   category_id        String
+  collections        product_collection[]
   product_items      product_item[]
   product_image      String
   product_promotions promotion_product[]
+}
+
+model collection {
+  id       String               @id @default(uuid())
+  name     String
+  products product_collection[]
+}
+
+model product_collection {
+  product      product    @relation(fields: [productId], references: [id])
+  productId    String
+  collection   collection @relation(fields: [collectionId], references: [id])
+  collectionId String
+
+  @@id([collectionId, productId])
 }
 
 model product_item {
@@ -110,8 +126,8 @@ model product_category {
   parent_category_id String?
   category_name      String
   products           product[]
-  parent_category    product_category?  @relation("ParentCategory", fields: [parent_category_id], references: [id])
-  sub_categories     product_category[] @relation("ParentCategory")
+  parent_category    product_category?  @relation("parent_category", fields: [parent_category_id], references: [id])
+  sub_categories     product_category[] @relation("parent_category")
   variations         variation[]
 }
 
@@ -138,7 +154,7 @@ model product_configuration {
   variation_option    variation_option @relation(fields: [variation_option_id], references: [id])
   variation_option_id String
 
-  @@id([product_item_id, variation_option_id])
+  @@id(fields: [product_item_id, variation_option_id], name: "id")
 }
 
 model shopping_cart {
@@ -162,8 +178,8 @@ model shop_order {
   user                site_user           @relation(fields: [user_id], references: [id])
   user_id             String
   order_date          DateTime            @default(now())
-  payment_method      user_payment_method @relation(fields: [payment_methiod_id], references: [id])
-  payment_methiod_id  String
+  payment_method      user_payment_method @relation(fields: [payment_method_id], references: [id])
+  payment_method_id   String
   shipping_address    address             @relation(fields: [shipping_address_id], references: [id])
   shipping_address_id String
   shipping_method     shipping_method     @relation(fields: [shipping_method_id], references: [id])
@@ -174,11 +190,14 @@ model shop_order {
 }
 
 enum order_status {
-  ORDERED
+  DRAFT
   PROCESSING
+  PAID
   SHIPPED
   DELIVERED
   CANCELLED
+  RETURNED
+  REFUNDED
 }
 
 model shipping_method {
