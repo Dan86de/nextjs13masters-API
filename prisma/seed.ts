@@ -1,30 +1,25 @@
-// prisma/seed.ts
-// import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
+import * as dotenv from 'dotenv';
 
-// const prisma = new PrismaClient();
+const prisma = new PrismaClient();
 
-// async function main() {
-//   const fakerRounds = 50;
-//   dotenv.config();
-//   console.log('Seeding...');
-//   for (let i = 0; i < fakerRounds; i++) {
-//     await prisma.product.create({
-//       data: {
-//         name: faker.commerce.product(),
-//         description: faker.commerce.productDescription(),
-//         product_image: '',
-//         category: {
-//           create: {
-//             category_name: faker.commerce
-//           }
-//         }
-//       },
-//     });
-//   }
-// }
+async function main() {
+  const fakerRounds = 1;
+  dotenv.config();
+  console.log('Seeding...');
+  for (let i = 0; i < fakerRounds; i++) {
+    await prisma.site_user.create({
+      data: {
+        email: 'daniel.noworyta@gmail.com',
+        password: 'test123',
+        phone_number: '123456789',
+      },
+    });
+  }
+}
 
-// main()
-//   .catch((e) => console.error(e))
-//   .finally(async () => {
-//     await prisma.$disconnect();
-//   });
+main()
+  .catch((e) => console.error(e))
+  .finally(async () => {
+    await prisma.$disconnect();
+  });
