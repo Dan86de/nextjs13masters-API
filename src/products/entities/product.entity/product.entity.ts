@@ -1,5 +1,6 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
-import { ProductCategory } from './product-category.entity';
+import { ProductCategory } from 'src/categories/entities/category.entity';
+import { Collection } from 'src/collections/entities/collection.entity';
 
 @ObjectType({ description: 'Product model.' })
 export class Product {
@@ -15,4 +16,13 @@ export class Product {
   category_id: string;
   @Field({ description: 'Product image.' })
   product_image: string;
+  collections: ProductCollection[];
+}
+
+@ObjectType()
+class ProductCollection {
+  product: Product;
+  productId: string;
+  collection: Collection;
+  collectionId: string;
 }

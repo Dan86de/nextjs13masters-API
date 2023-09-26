@@ -9,6 +9,15 @@ type ProductCategory {
   category_name: String!
 }
 
+"""Collection model."""
+type Collection {
+  """Collection id."""
+  id: ID!
+
+  """Collection name."""
+  name: ID!
+}
+
 """Product model."""
 type Product {
   """Product id."""
@@ -28,15 +37,14 @@ type Product {
 
   """Product image."""
   product_image: String!
+  collections: [ProductCollection!]!
 }
 
-"""Collection model."""
-type Collection {
-  """Collection id."""
-  id: ID!
-
-  """Collection name."""
-  name: ID!
+type ProductCollection {
+  product: Product!
+  productId: String!
+  collection: Collection!
+  collectionId: String!
 }
 
 type Query {

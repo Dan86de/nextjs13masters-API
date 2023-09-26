@@ -5,7 +5,7 @@ import { PrismaService } from 'src/prisma.service';
 export class CollectionsService {
   constructor(private prisma: PrismaService) {}
   async findAll() {
-    return await this.prisma.product_collection.findMany();
+    return await this.prisma.collection.findMany();
   }
 
   async findOne(collectionId: string) {

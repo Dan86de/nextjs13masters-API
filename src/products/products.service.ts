@@ -14,10 +14,16 @@ export class ProductsService {
   }
 
   async findOne(id: string) {
-    return this.prisma.product.findFirst({
+    return this.prisma.product.findUnique({
       where: { id },
       include: {
         category: true,
+        collections: {
+          include: {
+            product: true,
+            collection: true,
+          },
+        },
       },
     });
   }

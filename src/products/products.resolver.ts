@@ -16,7 +16,9 @@ export class ProductsResolver {
     nullable: true,
   })
   async findOne(@Args('id', { type: () => ID }) id: string) {
-    return this.productService.findOne(id);
+    const product = await this.productService.findOne(id);
+    console.log(product);
+    return product;
   }
   @Mutation(() => Product, { name: 'createProduct', nullable: true })
   async create(

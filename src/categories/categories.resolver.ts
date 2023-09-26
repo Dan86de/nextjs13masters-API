@@ -1,6 +1,6 @@
 import { Args, ID, Query, Resolver } from '@nestjs/graphql';
 import { CategoriesService } from './categories.service';
-import { ProductCategory } from 'src/products/entities/product.entity/product-category.entity';
+import { ProductCategory } from 'src/categories/entities/category.entity';
 
 @Resolver()
 export class CategoriesResolver {
