@@ -1,3 +1,4 @@
+import { faker } from '@faker-js/faker';
 import { PrismaClient } from '@prisma/client';
 import * as dotenv from 'dotenv';
 
@@ -869,13 +870,49 @@ async function createProductCollectionsAndConnectProducts() {
   }
 }
 
+async function createProductItems() {
+  for (let i = 0; i < fakeProductsSeedData.length; i++) {
+    const currentProduct = fakeProductsSeedData[i];
+    const productCategoryId = fakeProductsSeedData[i].category_id;
+    const categoryVariations = await prisma.variation.findMany({
+      where: {
+        product_categoryId: productCategoryId,
+      },
+    });
+    console.log('CATEGORY VARIATIONS', categoryVariations);
+    for (let i = 0; i < categoryVariations.length; i++) {
+      const productVariaitonOptions = await prisma.variation_option.findMany({
+        where: {
+          variation_id: categoryVariations[i].id,
+        },
+      });
+      console.log('PRODUCT VARIATION OPTIONS', productVariaitonOptions);
+      for (let i = 0; i < productVariaitonOptions.length; i++) {
+        const productItemId = faker.string.uuid();
+        await prisma.product_item.create({
+          data: {
+            id: productItemId,
+            price: Number(faker.commerce.price({ min: 100 })),
+            SKU: faker.string.sample(12),
+            qty_in_stock: faker.number.int({ min: 0, max: 50 }),
+            product_id: currentProduct.id,
+            product_configurations: {
+              create: {
+                variation_option_id: productVariaitonOptions[i].id,
+              },
+            },
+          },
+        });
+      }
+    }
+  }
+}
+
 async function main() {
-  console.log('START SETUP CATEGORIES AND USERS');
   await createUserAndCategories();
-  console.log('START SETUP PRODUCTS');
   await createProducts();
-  console.log('START SETUP PRODUCT COLLECTIONS');
   await createProductCollectionsAndConnectProducts();
+  await createProductItems();
 }
 
 main()
