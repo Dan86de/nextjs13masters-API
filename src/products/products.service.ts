@@ -63,6 +63,27 @@ export class ProductsService {
     });
   }
 
+  async findAllFromGivenCategory(categoryId: string) {
+    return await this.prisma.product.findMany({
+      where: {
+        category_id: categoryId,
+      },
+      include: {
+        category: {
+          include: {
+            variations: true,
+          },
+        },
+        product_items: {
+          take: 1,
+          select: {
+            price: true,
+          },
+        },
+      },
+    });
+  }
+
   async create(createProductInput: CreateProductInput, category_id: string) {
     return this.prisma.product.create({
       data: { ...createProductInput, category_id },
