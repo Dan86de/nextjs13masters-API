@@ -5,11 +5,26 @@ import { CreateProductInput } from './dto/create-product.input/create-product.in
 @Injectable()
 export class ProductsService {
   constructor(private prisma: PrismaService) {}
-  async findAll() {
+  async findAll(skip: number = 0, take: number = 20) {
     return await this.prisma.product.findMany({
       include: {
-        category: true,
+        category: {
+          include: {
+            variations: true,
+          },
+        },
+        product_items: {
+          include: {
+            product_configurations: {
+              include: {
+                variation_option: true,
+              },
+            },
+          },
+        },
       },
+      skip,
+      take,
     });
   }
 
@@ -17,11 +32,18 @@ export class ProductsService {
     return this.prisma.product.findUnique({
       where: { id },
       include: {
-        category: true,
-        collections: {
+        category: {
           include: {
-            product: true,
-            collection: true,
+            variations: true,
+          },
+        },
+        product_items: {
+          include: {
+            product_configurations: {
+              include: {
+                variation_option: true,
+              },
+            },
           },
         },
       },

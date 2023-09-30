@@ -1,4 +1,4 @@
-import { Args, ID, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, ID, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { CreateProductInput } from './dto/create-product.input/create-product.input';
 import { Product } from './entities/product.entity/product.entity';
 import { ProductsService } from './products.service';
@@ -7,8 +7,23 @@ import { ProductsService } from './products.service';
 export class ProductsResolver {
   constructor(private readonly productService: ProductsService) {}
   @Query(() => [Product], { name: 'products', description: 'Get all products' })
-  async findAll() {
-    return await this.productService.findAll();
+  async findAll(
+    @Args('skip', {
+      defaultValue: 0,
+      type: () => Int,
+      nullable: true,
+      name: 'Skip',
+    })
+    skip?: number,
+    @Args('take', {
+      defaultValue: 20,
+      type: () => Int,
+      nullable: true,
+      name: 'Take',
+    })
+    take?: number,
+  ) {
+    return await this.productService.findAll(skip, take);
   }
   @Query(() => Product, {
     name: 'product',
