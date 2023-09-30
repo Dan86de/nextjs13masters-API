@@ -36,7 +36,8 @@ type Collection {
   id: ID!
 
   """Collection name."""
-  name: ID!
+  name: String!
+  products: [Product!]!
 }
 
 """Product model."""
@@ -99,10 +100,10 @@ type Query {
   category(name: String!): ProductCategory
 
   """Get all collections"""
-  collections: [Collection!]!
+  collections(skip: Int = 0, take: Int = 20): [Collection!]!
 
-  """Get single collection by ID"""
-  collection(collectionId: ID!): Collection
+  """Get single collection by name"""
+  collection(collectionName: String!): Collection
 }
 
 type Mutation {

@@ -13,6 +13,11 @@ export class ProductsService {
             variations: true,
           },
         },
+        collections: {
+          include: {
+            collection: true,
+          },
+        },
         product_items: {
           take: 1,
           select: {
@@ -58,7 +63,19 @@ export class ProductsService {
       },
       include: {
         _count: true,
-        category: true,
+        category: {
+          select: {
+            id: true,
+            category_name: true,
+          },
+        },
+        collections: true,
+        product_items: {
+          take: 1,
+          select: {
+            price: true,
+          },
+        },
       },
     });
   }
