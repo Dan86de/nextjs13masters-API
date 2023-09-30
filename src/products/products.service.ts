@@ -13,13 +13,15 @@ export class ProductsService {
             variations: true,
           },
         },
-        product_items: {
+        collections: {
           include: {
-            product_configurations: {
-              include: {
-                variation_option: true,
-              },
-            },
+            collection: true,
+          },
+        },
+        product_items: {
+          take: 1,
+          select: {
+            price: true,
           },
         },
       },
@@ -61,7 +63,40 @@ export class ProductsService {
       },
       include: {
         _count: true,
-        category: true,
+        category: {
+          select: {
+            id: true,
+            category_name: true,
+          },
+        },
+        collections: true,
+        product_items: {
+          take: 1,
+          select: {
+            price: true,
+          },
+        },
+      },
+    });
+  }
+
+  async findAllFromGivenCategory(categoryId: string) {
+    return await this.prisma.product.findMany({
+      where: {
+        category_id: categoryId,
+      },
+      include: {
+        category: {
+          include: {
+            variations: true,
+          },
+        },
+        product_items: {
+          take: 1,
+          select: {
+            price: true,
+          },
+        },
       },
     });
   }

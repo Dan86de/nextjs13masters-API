@@ -6,6 +6,7 @@ import { ProductsService } from './products.service';
 @Resolver()
 export class ProductsResolver {
   constructor(private readonly productService: ProductsService) {}
+
   @Query(() => [Product], { name: 'products', description: 'Get all products' })
   async findAll(
     @Args('skip', {
@@ -25,6 +26,7 @@ export class ProductsResolver {
   ) {
     return await this.productService.findAll(skip, take);
   }
+
   @Query(() => Product, {
     name: 'product',
     description: 'Get single product by ID',
@@ -32,9 +34,9 @@ export class ProductsResolver {
   })
   async findOne(@Args('id', { type: () => ID }) id: string) {
     const product = await this.productService.findOne(id);
-    console.log(product);
     return product;
   }
+
   @Query(() => [Product], {
     name: 'productsFromCollection',
     description: 'Get all products from collection with given id.',
@@ -45,9 +47,22 @@ export class ProductsResolver {
   ) {
     const product =
       await this.productService.findAllFromGivenCollection(collectionId);
-    console.log(product);
     return product;
   }
+
+  @Query(() => [Product], {
+    name: 'productsFromCategory',
+    description: 'Get all products from category with given category id.',
+    nullable: true,
+  })
+  async findAllFromGivenCategory(
+    @Args('categoryId', { type: () => ID }) categoryId: string,
+  ) {
+    const product =
+      await this.productService.findAllFromGivenCategory(categoryId);
+    return product;
+  }
+
   @Mutation(() => Product, { name: 'createProduct', nullable: true })
   async create(
     @Args('createProductInput') createProductInput: CreateProductInput,
