@@ -14,12 +14,9 @@ export class ProductsService {
           },
         },
         product_items: {
-          include: {
-            product_configurations: {
-              include: {
-                variation_option: true,
-              },
-            },
+          take: 1,
+          select: {
+            price: true,
           },
         },
       },
