@@ -51,6 +51,16 @@ export class ProductsResolver {
   }
 
   @Query(() => [Product], {
+    name: 'productsByName',
+    description: 'Search products by name',
+    nullable: true,
+  })
+  async findAllByName(@Args('name', { type: () => String! }) name: string) {
+    const products = await this.productService.findAllByName(name);
+    return products || [];
+  }
+
+  @Query(() => [Product], {
     name: 'productsFromCategory',
     description: 'Get all products from category with given category id.',
     nullable: true,

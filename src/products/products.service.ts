@@ -52,6 +52,35 @@ export class ProductsService {
     });
   }
 
+  async findAllByName(name: string) {
+    return this.prisma.product.findMany({
+      where: {
+        name: {
+          mode: 'insensitive',
+          contains: name,
+        },
+      },
+      include: {
+        category: {
+          include: {
+            variations: true,
+          },
+        },
+        collections: {
+          include: {
+            collection: true,
+          },
+        },
+        product_items: {
+          take: 1,
+          select: {
+            price: true,
+          },
+        },
+      },
+    });
+  }
+
   async findAllFromGivenCollection(collectionId: string) {
     return await this.prisma.product.findMany({
       where: {

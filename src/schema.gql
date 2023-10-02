@@ -90,6 +90,9 @@ type Query {
   """Get all products from collection with given id."""
   productsFromCollection(collectionId: ID!): [Product!]
 
+  """Search products by name"""
+  productsByName(name: String!): [Product!]
+
   """Get all products from category with given category id."""
   productsFromCategory(categoryId: ID!): [Product!]
 
