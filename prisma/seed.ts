@@ -196,7 +196,7 @@ const fakeProductsSeedData = [
     id: 'a111b222-c333-d444-e555-f66677788899',
     name: 'Vans Sneaker',
     description: 'Stylish and comfortable sneakers from Vans.',
-    product_image: 'https://dsc.cloud/88160a/vans_sneaker.png',
+    product_image: 'https://dsc.cloud/88160a/vans_sneaker.webp',
     category_id: 'cd60d062-1ed5-4a91-8740-7009a9264d72',
     collections: {
       connect: {
@@ -212,7 +212,7 @@ const fakeProductsSeedData = [
     name: 'Under Armour Socks',
     description:
       'Experience ultimate comfort and durability with Under Armour socks, perfect for athletic and casual wear.',
-    product_image: 'https://dsc.cloud/88160a/under_armour_socks.png',
+    product_image: 'https://dsc.cloud/88160a/under_armour_socks.webp',
     category_id: 'df9f377d-fd75-4638-a2ca-1a3ded811427',
     collections: {
       connect: {
@@ -228,7 +228,7 @@ const fakeProductsSeedData = [
     name: 'Under Armour Socks #1',
     description:
       'Relish the superior quality and comfort with the second edition of Under Armour socks, ideal for all your athletic activities.',
-    product_image: 'https://dsc.cloud/88160a/under_armour_socks_1.png',
+    product_image: 'https://dsc.cloud/88160a/under_armour_socks_1.webp',
     category_id: 'df9f377d-fd75-4638-a2ca-1a3ded811427',
     collections: {
       connect: {
@@ -244,7 +244,7 @@ const fakeProductsSeedData = [
     name: 'Under Armour Sneaker',
     description:
       'Step into comfort and style with Under Armour Sneakers, perfect for athletic performance or casual wear.',
-    product_image: 'https://dsc.cloud/88160a/under_armour_sneaker.png',
+    product_image: 'https://dsc.cloud/88160a/under_armour_sneaker.webp',
     category_id: 'cd60d062-1ed5-4a91-8740-7009a9264d72',
     collections: {
       connect: {
@@ -260,7 +260,7 @@ const fakeProductsSeedData = [
     name: 'Reebok T-Shirt',
     description:
       'Stay cool and comfortable in this classic Reebok T-shirt, ideal for daily wear or your workout sessions.',
-    product_image: 'https://dsc.cloud/88160a/reebok_tshirt.png',
+    product_image: 'https://dsc.cloud/88160a/reebok_tshirt.webp',
     category_id: 'df9f377d-fd75-4638-a2ca-1a3ded811427',
     collections: {
       connect: {
@@ -276,7 +276,7 @@ const fakeProductsSeedData = [
     name: 'Reebok Sneaker',
     description:
       'Discover comfort and style with Reebok Sneakers, designed for optimum performance and everyday wear.',
-    product_image: 'https://dsc.cloud/88160a/reebok_sneaker.png',
+    product_image: 'https://dsc.cloud/88160a/reebok_sneaker.webp',
     category_id: 'cd60d062-1ed5-4a91-8740-7009a9264d72',
     collections: {
       connect: {
@@ -292,7 +292,7 @@ const fakeProductsSeedData = [
     name: 'Reebok Shorts',
     description:
       'Move freely with Reebok Shorts, perfect for workouts, sports, or just lounging around.',
-    product_image: 'https://dsc.cloud/88160a/reebok_shorts.png',
+    product_image: 'https://dsc.cloud/88160a/reebok_shorts.webp',
     category_id: 'df9f377d-fd75-4638-a2ca-1a3ded811427',
     collections: {
       connect: {
@@ -308,7 +308,7 @@ const fakeProductsSeedData = [
     name: 'Reebok Hoodie',
     description:
       'Stay warm and stylish with the Reebok Hoodie, suitable for chilly days and evening workouts.',
-    product_image: 'https://dsc.cloud/88160a/reebok_hoodie.png',
+    product_image: 'https://dsc.cloud/88160a/reebok_hoodie.webp',
     category_id: 'df9f377d-fd75-4638-a2ca-1a3ded811427',
     collections: {
       connect: {
@@ -324,7 +324,7 @@ const fakeProductsSeedData = [
     name: 'Reebok Hoodie #1',
     description:
       'Embrace comfort and warmth with another classic Hoodie from Reebok, a must-have for your wardrobe.',
-    product_image: 'https://dsc.cloud/88160a/reebok_hoodie_1.png',
+    product_image: 'https://dsc.cloud/88160a/reebok_hoodie_1.webp',
     category_id: 'df9f377d-fd75-4638-a2ca-1a3ded811427',
     collections: {
       connect: {
@@ -340,7 +340,7 @@ const fakeProductsSeedData = [
     name: 'Reebok Cap',
     description:
       'Shield yourself from the sun with this sleek Reebok Cap, combining style and functionality.',
-    product_image: 'https://dsc.cloud/88160a/reebok_cap.png',
+    product_image: 'https://dsc.cloud/88160a/reebok_cap.webp',
     category_id: '135abb8c-370a-468d-ba88-2f72df1c3d39',
     collections: {
       connect: {
@@ -356,7 +356,7 @@ const fakeProductsSeedData = [
     name: 'Reebok Backpack',
     description:
       'Carry your essentials in style with the durable and spacious Reebok Backpack.',
-    product_image: 'https://dsc.cloud/88160a/reebok_backpack.png',
+    product_image: 'https://dsc.cloud/88160a/reebok_backpack.webp',
     category_id: '135abb8c-370a-468d-ba88-2f72df1c3d39',
     collections: {
       connect: {
@@ -372,7 +372,7 @@ const fakeProductsSeedData = [
     name: 'Puma Sneaker',
     description:
       'Elevate your style and comfort with Puma Sneakers, perfect for any occasion.',
-    product_image: 'https://dsc.cloud/88160a/puma_sneaker.png',
+    product_image: 'https://dsc.cloud/88160a/puma_sneaker.webp',
     category_id: 'cd60d062-1ed5-4a91-8740-7009a9264d72',
     collections: {
       connect: {
@@ -388,7 +388,7 @@ const fakeProductsSeedData = [
     name: 'Nike T-Shirt',
     description:
       'Experience comfort and style with the Nike T-Shirt, perfect for workouts or casual wear.',
-    product_image: 'https://dsc.cloud/88160a/nike_tshirt.png',
+    product_image: 'https://dsc.cloud/88160a/nike_tshirt.webp',
     category_id: 'df9f377d-fd75-4638-a2ca-1a3ded811427',
     collections: {
       connect: {
@@ -404,7 +404,7 @@ const fakeProductsSeedData = [
     name: 'Nike Sneaker',
     description:
       'Step into superior comfort and design with Nike Sneakers, crafted for optimal performance.',
-    product_image: 'https://dsc.cloud/88160a/nike_sneaker_2.png',
+    product_image: 'https://dsc.cloud/88160a/nike_sneaker_2.webp',
     category_id: 'cd60d062-1ed5-4a91-8740-7009a9264d72',
     collections: {
       connect: {
@@ -420,7 +420,7 @@ const fakeProductsSeedData = [
     name: 'Nike Sneaker #1',
     description:
       'Embrace the blend of comfort and style with another variant of Nike Sneakers.',
-    product_image: 'https://dsc.cloud/88160a/nike_sneaker_1.png',
+    product_image: 'https://dsc.cloud/88160a/nike_sneaker_1.webp',
     category_id: 'cd60d062-1ed5-4a91-8740-7009a9264d72',
     collections: {
       connect: {
@@ -436,7 +436,7 @@ const fakeProductsSeedData = [
     name: 'Nike Jacket',
     description:
       'Stay protected and stylish with the Nike Jacket, ideal for keeping you warm in cooler weather.',
-    product_image: 'https://dsc.cloud/88160a/nike_jacket.png',
+    product_image: 'https://dsc.cloud/88160a/nike_jacket.webp',
     category_id: 'df9f377d-fd75-4638-a2ca-1a3ded811427',
     collections: {
       connect: {
@@ -452,7 +452,7 @@ const fakeProductsSeedData = [
     name: 'Nike Hoodie',
     description:
       'Combine comfort and warmth with the Nike Hoodie, perfect for both active and casual wear.',
-    product_image: 'https://dsc.cloud/88160a/nike_hoodie.png',
+    product_image: 'https://dsc.cloud/88160a/nike_hoodie.webp',
     category_id: 'df9f377d-fd75-4638-a2ca-1a3ded811427',
     collections: {
       connect: {
@@ -468,7 +468,7 @@ const fakeProductsSeedData = [
     name: 'Nike Cap',
     description:
       'Stay cool and shaded with the Nike Cap, a great addition to your everyday attire.',
-    product_image: 'https://dsc.cloud/88160a/nike_cap.png',
+    product_image: 'https://dsc.cloud/88160a/nike_cap.webp',
     category_id: '135abb8c-370a-468d-ba88-2f72df1c3d39',
     collections: {
       connect: {
@@ -484,7 +484,7 @@ const fakeProductsSeedData = [
     name: 'Nike Backpack',
     description:
       'Keep your belongings secure with the spacious and stylish Nike Backpack.',
-    product_image: 'https://dsc.cloud/88160a/nike_backpack.png',
+    product_image: 'https://dsc.cloud/88160a/nike_backpack.webp',
     category_id: '135abb8c-370a-468d-ba88-2f72df1c3d39',
     collections: {
       connect: {
@@ -500,7 +500,7 @@ const fakeProductsSeedData = [
     name: 'Converse Sneaker',
     description:
       'Experience timeless style and comfort with Converse Sneakers, perfect for any outfit.',
-    product_image: 'https://dsc.cloud/88160a/converse_sneaker.png',
+    product_image: 'https://dsc.cloud/88160a/converse_sneaker.webp',
     category_id: 'cd60d062-1ed5-4a91-8740-7009a9264d72',
     collections: {
       connect: {
@@ -516,7 +516,7 @@ const fakeProductsSeedData = [
     name: 'Converse Sneaker #1',
     description:
       'Step into classic comfort and style with another variant of Converse Sneakers.',
-    product_image: 'https://dsc.cloud/88160a/converse_sneaker_1.png',
+    product_image: 'https://dsc.cloud/88160a/converse_sneaker_1.webp',
     category_id: 'cd60d062-1ed5-4a91-8740-7009a9264d72',
     collections: {
       connect: {
@@ -532,7 +532,7 @@ const fakeProductsSeedData = [
     name: 'Asics Sneaker',
     description:
       'Embrace the perfect blend of functionality and design with Asics Sneakers.',
-    product_image: 'https://dsc.cloud/88160a/asics_sneaker.png',
+    product_image: 'https://dsc.cloud/88160a/asics_sneaker.webp',
     category_id: 'cd60d062-1ed5-4a91-8740-7009a9264d72',
     collections: {
       connect: {
@@ -548,7 +548,7 @@ const fakeProductsSeedData = [
     name: 'Asics Sneaker #1',
     description:
       'Step into comfort with another variant of Asics Sneakers, made for ultimate performance and style.',
-    product_image: 'https://dsc.cloud/88160a/asics_sneaker_1.png',
+    product_image: 'https://dsc.cloud/88160a/asics_sneaker_1.webp',
     category_id: 'cd60d062-1ed5-4a91-8740-7009a9264d72',
     collections: {
       connect: {
@@ -564,7 +564,7 @@ const fakeProductsSeedData = [
     name: 'Asics Cap',
     description:
       'Protect yourself from the sun in style with the Asics Cap, a practical and fashionable choice.',
-    product_image: 'https://dsc.cloud/88160a/asics_cap.png',
+    product_image: 'https://dsc.cloud/88160a/asics_cap.webp',
     category_id: '135abb8c-370a-468d-ba88-2f72df1c3d39',
     collections: {
       connect: {
@@ -580,7 +580,7 @@ const fakeProductsSeedData = [
     name: 'Adidas T-Shirt',
     description:
       'Stay stylish and comfortable in the Adidas T-Shirt, perfect for everyday wear and workouts.',
-    product_image: 'https://dsc.cloud/88160a/adidas_tshirt_1.png',
+    product_image: 'https://dsc.cloud/88160a/adidas_tshirt_1.webp',
     category_id: 'df9f377d-fd75-4638-a2ca-1a3ded811427',
     collections: {
       connect: {
@@ -596,7 +596,7 @@ const fakeProductsSeedData = [
     name: 'Adidas Socks #1',
     description:
       'Enjoy the comfort and durability of Adidas Socks, made for all kinds of activities.',
-    product_image: 'https://dsc.cloud/88160a/adidas_socks.png',
+    product_image: 'https://dsc.cloud/88160a/adidas_socks.webp',
     category_id: 'df9f377d-fd75-4638-a2ca-1a3ded811427',
     collections: {
       connect: {
@@ -612,7 +612,7 @@ const fakeProductsSeedData = [
     name: 'Adidas Socks #2',
     description:
       'Experience the superior comfort and support of another variant of Adidas Socks.',
-    product_image: 'https://dsc.cloud/88160a/adidas_socks_1.png',
+    product_image: 'https://dsc.cloud/88160a/adidas_socks_1.webp',
     category_id: 'df9f377d-fd75-4638-a2ca-1a3ded811427',
     collections: {
       connect: {
@@ -628,7 +628,7 @@ const fakeProductsSeedData = [
     name: 'Adidas Sneaker',
     description:
       'Discover ultimate comfort and performance with Adidas Sneakers, made for all-day wear.',
-    product_image: 'https://dsc.cloud/88160a/adidas_sneaker_2.png',
+    product_image: 'https://dsc.cloud/88160a/adidas_sneaker_2.webp',
     category_id: 'cd60d062-1ed5-4a91-8740-7009a9264d72',
     collections: {
       connect: {
@@ -644,7 +644,7 @@ const fakeProductsSeedData = [
     name: 'Adidas Shorts',
     description:
       'Enjoy freedom of movement and stay cool with Adidas Shorts, suitable for workouts or casual wear.',
-    product_image: 'https://dsc.cloud/88160a/adidas_shorts.png',
+    product_image: 'https://dsc.cloud/88160a/adidas_shorts.webp',
     category_id: 'df9f377d-fd75-4638-a2ca-1a3ded811427',
     collections: {
       connect: {
@@ -660,7 +660,7 @@ const fakeProductsSeedData = [
     name: 'Adidas Shorts #1',
     description:
       'Step into comfort and style with another variant of Adidas Shorts, perfect for athletic and leisure activities.',
-    product_image: 'https://dsc.cloud/88160a/adidas_shorts_1.png',
+    product_image: 'https://dsc.cloud/88160a/adidas_shorts_1.webp',
     category_id: 'df9f377d-fd75-4638-a2ca-1a3ded811427',
     collections: {
       connect: {
@@ -676,7 +676,7 @@ const fakeProductsSeedData = [
     name: 'Adidas Jacket',
     description:
       'Brace the weather in style with the Adidas Jacket, ensuring you stay warm and fashionable.',
-    product_image: 'https://dsc.cloud/88160a/adidas_jacket.png',
+    product_image: 'https://dsc.cloud/88160a/adidas_jacket.webp',
     category_id: 'df9f377d-fd75-4638-a2ca-1a3ded811427',
     collections: {
       connect: {
@@ -692,7 +692,7 @@ const fakeProductsSeedData = [
     name: 'Adidas Hoodie',
     description:
       'Keep cozy and comfy with the Adidas Hoodie, suitable for everyday wear and workouts.',
-    product_image: 'https://dsc.cloud/88160a/adidas_hoodie.png',
+    product_image: 'https://dsc.cloud/88160a/adidas_hoodie.webp',
     category_id: 'df9f377d-fd75-4638-a2ca-1a3ded811427',
     collections: {
       connect: {
@@ -708,7 +708,7 @@ const fakeProductsSeedData = [
     name: 'Adidas Hoodie #1',
     description:
       'Stay warm and stylish with another fashionable Adidas Hoodie, perfect for chilly days.',
-    product_image: 'https://dsc.cloud/88160a/adidas_hoodie_1.png',
+    product_image: 'https://dsc.cloud/88160a/adidas_hoodie_1.webp',
     category_id: 'df9f377d-fd75-4638-a2ca-1a3ded811427',
     collections: {
       connect: {
@@ -724,7 +724,7 @@ const fakeProductsSeedData = [
     name: 'Adidas Cap',
     description:
       'Shield yourself from the sun in style with the Adidas Cap, combining functionality with fashion.',
-    product_image: 'https://dsc.cloud/88160a/adidas_cap.png',
+    product_image: 'https://dsc.cloud/88160a/adidas_cap.webp',
     category_id: '135abb8c-370a-468d-ba88-2f72df1c3d39',
     collections: {
       connect: {
@@ -740,7 +740,7 @@ const fakeProductsSeedData = [
     name: 'Adidas Backpack',
     description:
       'Carry your essentials with ease and style with the Adidas Backpack.',
-    product_image: 'https://dsc.cloud/88160a/adidas_backpack.png',
+    product_image: 'https://dsc.cloud/88160a/adidas_backpack.webp',
     category_id: '135abb8c-370a-468d-ba88-2f72df1c3d39',
     collections: {
       connect: {
@@ -756,7 +756,7 @@ const fakeProductsSeedData = [
     name: 'Reebok Polo Shirt',
     description:
       'Embrace a classic look with the Reebok Polo Shirt, perfect for casual and semi-formal settings.',
-    product_image: 'https://dsc.cloud/88160a/reebok_polo_shirt.png',
+    product_image: 'https://dsc.cloud/88160a/reebok_polo_shirt.webp',
     category_id: 'df9f377d-fd75-4638-a2ca-1a3ded811427',
     collections: {
       connect: {
@@ -772,7 +772,7 @@ const fakeProductsSeedData = [
     name: 'Nike Polo Shirt',
     description:
       'Showcase timeless style with the Nike Polo Shirt, suitable for various occasions.',
-    product_image: 'https://dsc.cloud/88160a/nike_polo_shirt.png',
+    product_image: 'https://dsc.cloud/88160a/nike_polo_shirt.webp',
     category_id: 'df9f377d-fd75-4638-a2ca-1a3ded811427',
     collections: {
       connect: {
@@ -788,7 +788,7 @@ const fakeProductsSeedData = [
     name: 'Lacoste Polo Shirt',
     description:
       'Exude elegance and comfort with the Lacoste Polo Shirt, a must-have for your wardrobe.',
-    product_image: 'https://dsc.cloud/88160a/lacoste_polo_shirt.png',
+    product_image: 'https://dsc.cloud/88160a/lacoste_polo_shirt.webp',
     category_id: 'df9f377d-fd75-4638-a2ca-1a3ded811427',
     collections: {
       connect: {
@@ -804,7 +804,7 @@ const fakeProductsSeedData = [
     name: 'Adidas Polo Shirt',
     description:
       'Stay cool and stylish with the Adidas Polo Shirt, perfect for everyday wear and sports activities.',
-    product_image: 'https://dsc.cloud/88160a/adidas_polo_shirt.png',
+    product_image: 'https://dsc.cloud/88160a/adidas_polo_shirt.webp',
     category_id: 'df9f377d-fd75-4638-a2ca-1a3ded811427',
     collections: {
       connect: {
