@@ -19,6 +19,9 @@ export class ProductsService {
           },
         },
         product_items: {
+          orderBy: {
+            price: 'asc',
+          },
           take: 1,
           select: {
             price: true,
@@ -47,6 +50,9 @@ export class ProductsService {
               },
             },
           },
+          orderBy: {
+            price: 'asc',
+          },
         },
       },
     });
@@ -72,6 +78,9 @@ export class ProductsService {
           },
         },
         product_items: {
+          orderBy: {
+            price: 'asc',
+          },
           take: 1,
           select: {
             price: true,
@@ -100,6 +109,9 @@ export class ProductsService {
         },
         collections: true,
         product_items: {
+          orderBy: {
+            price: 'asc',
+          },
           take: 1,
           select: {
             price: true,
@@ -121,6 +133,9 @@ export class ProductsService {
           },
         },
         product_items: {
+          orderBy: {
+            price: 'asc',
+          },
           take: 1,
           select: {
             price: true,
