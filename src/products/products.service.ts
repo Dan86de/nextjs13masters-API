@@ -19,12 +19,15 @@ export class ProductsService {
           },
         },
         product_items: {
+          include: {
+            product_configurations: {
+              include: {
+                variation_option: true,
+              },
+            },
+          },
           orderBy: {
             price: 'asc',
-          },
-          take: 1,
-          select: {
-            price: true,
           },
         },
       },
@@ -78,12 +81,15 @@ export class ProductsService {
           },
         },
         product_items: {
+          include: {
+            product_configurations: {
+              include: {
+                variation_option: true,
+              },
+            },
+          },
           orderBy: {
             price: 'asc',
-          },
-          take: 1,
-          select: {
-            price: true,
           },
         },
       },
@@ -109,12 +115,15 @@ export class ProductsService {
         },
         collections: true,
         product_items: {
+          include: {
+            product_configurations: {
+              include: {
+                variation_option: true,
+              },
+            },
+          },
           orderBy: {
             price: 'asc',
-          },
-          take: 1,
-          select: {
-            price: true,
           },
         },
       },
@@ -133,12 +142,15 @@ export class ProductsService {
           },
         },
         product_items: {
+          include: {
+            product_configurations: {
+              include: {
+                variation_option: true,
+              },
+            },
+          },
           orderBy: {
             price: 'asc',
-          },
-          take: 1,
-          select: {
-            price: true,
           },
         },
       },

@@ -2,34 +2,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type VariationOption {
-  id: String!
-  value: String!
-  product_categoryId: String!
-}
-
-"""Product configuration model"""
-type ProductConfiguration {
-  product: ProductItem!
-  product_item_id: String!
-  variation_option: VariationOption!
-  variation_option_id: String!
-}
-
-"""Product category model"""
-type ProductCategory {
-  id: ID!
-  parent_category_id: String
-  category_name: String!
-  variations: [Variation!]!
-}
-
-type Variation {
-  id: String!
-  name: String!
-  variation_options: [VariationOption!]!
-}
-
 """Collection model."""
 type Collection {
   """Collection id."""
@@ -78,6 +50,34 @@ type ProductItem {
   qty_in_stock: Float!
   price: Float!
   product_images: [String!]!
+}
+
+type VariationOption {
+  id: String!
+  value: String!
+  product_categoryId: String!
+}
+
+"""Product configuration model"""
+type ProductConfiguration {
+  product: ProductItem!
+  product_item_id: String!
+  variation_option: VariationOption!
+  variation_option_id: String!
+}
+
+"""Product category model"""
+type ProductCategory {
+  id: ID!
+  parent_category_id: String
+  category_name: String!
+  variations: [Variation!]!
+}
+
+type Variation {
+  id: String!
+  name: String!
+  variation_options: [VariationOption!]!
 }
 
 type Query {
