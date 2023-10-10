@@ -166,7 +166,7 @@ model shopping_cart {
 
 model shopping_cart_item {
   id              String        @id @default(uuid())
-  cart            shopping_cart @relation(fields: [cart_id], references: [id])
+  cart            shopping_cart @relation(fields: [cart_id], references: [id], onDelete: Cascade)
   cart_id         String
   product_item    product_item  @relation(fields: [product_item_id], references: [id])
   product_item_id String

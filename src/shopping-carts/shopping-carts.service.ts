@@ -16,6 +16,13 @@ export class ShoppingCartsService {
       where: {
         id: cartId,
       },
+      include: {
+        shopping_cart_item: {
+          include: {
+            product_item: true,
+          },
+        },
+      },
     });
   }
 
@@ -27,14 +34,28 @@ export class ShoppingCartsService {
     });
   }
 
-  async create(userId: string, itemId: string) {
+  async create(userId: string) {
     return this.prisma.shopping_cart.create({
       data: {
         user_id: userId,
+      },
+      select: {
+        id: true,
+        shopping_cart_item: true,
+      },
+    });
+  }
+
+  async addToCart(cartId: string, productItemId: string) {
+    // fix this one here
+    return this.prisma.shopping_cart.update({
+      where: {
+        id: cartId,
+      },
+      data: {
         shopping_cart_item: {
-          connect: {
-            id: itemId,
-            // TODO: add possibility to put more items
+          create: {
+            product_item_id: productItemId,
             qty: 1,
           },
         },

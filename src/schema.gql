@@ -80,6 +80,26 @@ type Variation {
   variation_options: [VariationOption!]!
 }
 
+"""Shopping cart model."""
+type ShoppingCart {
+  """Shopping cart id."""
+  id: ID!
+
+  """User id."""
+  userId: String!
+  shopping_cart_item: [ShoppingCartItem!]!
+}
+
+"""Shopping cart item model."""
+type ShoppingCartItem {
+  """Shopping cart item id."""
+  id: ID!
+  cart_id: String!
+  product_item: ProductItem!
+  product_item_id: String!
+  qty: Float!
+}
+
 type Query {
   """Get all products"""
   products(skip: Int = 0, take: Int = 20): [Product!]!
@@ -107,8 +127,19 @@ type Query {
 
   """Get single collection by name"""
   collection(collectionName: String!): Collection
+
+  """Get all shopping carts"""
+  shoppingCarts(skip: Int = 0, take: Int = 20): [ShoppingCart!]!
+
+  """Get single cart by ID"""
+  shoppingCartGetByCartId(cartId: ID!): ShoppingCart
+
+  """Get single cart by user ID"""
+  shoppingCartGetByUserId(userId: ID!): ShoppingCart
 }
 
 type Mutation {
   createProduct(createProductInput: String!): Product
+  createShoppingCart(userId: String!): ShoppingCart
+  addToCart(cartId: String!, productItemId: String!): ShoppingCart
 }

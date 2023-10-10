@@ -1,4 +1,4 @@
-import { Args, ID, Int, Query, Resolver } from '@nestjs/graphql';
+import { Args, ID, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { ShoppingCart } from './entities/shopping-cart.entity';
 import { ShoppingCartsService } from './shopping-carts.service';
 
@@ -6,7 +6,7 @@ import { ShoppingCartsService } from './shopping-carts.service';
 export class ShoppingCartsResolver {
   constructor(private readonly shoppingCartsService: ShoppingCartsService) {}
   @Query(() => [ShoppingCart], {
-    name: 'shopping_carts',
+    name: 'shoppingCarts',
     description: 'Get all shopping carts',
   })
   async findAll(
@@ -29,7 +29,7 @@ export class ShoppingCartsResolver {
   }
 
   @Query(() => ShoppingCart, {
-    name: 'shopping_cart',
+    name: 'shoppingCartGetByCartId',
     description: 'Get single cart by ID',
     nullable: true,
   })
@@ -38,11 +38,24 @@ export class ShoppingCartsResolver {
   }
 
   @Query(() => ShoppingCart, {
-    name: 'shopping_cart',
+    name: 'shoppingCartGetByUserId',
     description: 'Get single cart by user ID',
     nullable: true,
   })
   async findOneByUserId(@Args('userId', { type: () => ID }) userId: string) {
     return this.shoppingCartsService.findOneByUserId(userId);
+  }
+
+  @Mutation(() => ShoppingCart, { name: 'createShoppingCart', nullable: true })
+  async createShoppingCart(@Args('userId') userId: string) {
+    return this.shoppingCartsService.create(userId);
+  }
+
+  @Mutation(() => ShoppingCart, { name: 'addToCart', nullable: true })
+  async addToCart(
+    @Args('cartId') cartId: string,
+    @Args('productItemId') productItemId: string,
+  ) {
+    return this.shoppingCartsService.addToCart(cartId, productItemId);
   }
 }
