@@ -5,8 +5,10 @@ import { ProductItem } from 'src/products/entities/product.entity/product.entity
 export class ShoppingCart {
   @Field(() => ID, { description: 'Shopping cart id.' })
   id: string;
-  @Field(() => String, { description: 'User id.' })
-  userId: string;
+}
+
+@ObjectType({ description: 'Shopping cart with items.' })
+export class ShoppingCartWithItems extends ShoppingCart {
   @Field(() => [ShoppingCartItem])
   shopping_cart_item: ShoppingCartItem[];
 }

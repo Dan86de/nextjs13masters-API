@@ -84,9 +84,12 @@ type Variation {
 type ShoppingCart {
   """Shopping cart id."""
   id: ID!
+}
 
-  """User id."""
-  userId: String!
+"""Shopping cart with items."""
+type ShoppingCartWithItems {
+  """Shopping cart id."""
+  id: ID!
   shopping_cart_item: [ShoppingCartItem!]!
 }
 
@@ -132,7 +135,7 @@ type Query {
   shoppingCarts(skip: Int = 0, take: Int = 20): [ShoppingCart!]!
 
   """Get single cart by ID"""
-  shoppingCartGetByCartId(cartId: ID!): ShoppingCart
+  shoppingCartGetByCartId(cartId: ID!): ShoppingCartWithItems
 
   """Get single cart by user ID"""
   shoppingCartGetByUserId(userId: ID!): ShoppingCart
@@ -141,5 +144,6 @@ type Query {
 type Mutation {
   createProduct(createProductInput: String!): Product
   createShoppingCart(userId: String!): ShoppingCart
-  addToCart(cartId: String!, productItemId: String!): ShoppingCart
+  addToEmptyCart(cartId: String!, productItemId: String!): ShoppingCartWithItems
+  updateQtyForCartItem(cartId: String!, cartItemId: String!, qty: Int = 1): ShoppingCartWithItems
 }

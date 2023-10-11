@@ -1,5 +1,8 @@
 import { Args, ID, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { ShoppingCart } from './entities/shopping-cart.entity';
+import {
+  ShoppingCart,
+  ShoppingCartWithItems,
+} from './entities/shopping-cart.entity';
 import { ShoppingCartsService } from './shopping-carts.service';
 
 @Resolver()
@@ -28,13 +31,13 @@ export class ShoppingCartsResolver {
     return await this.shoppingCartsService.findAll(skip, take);
   }
 
-  @Query(() => ShoppingCart, {
+  @Query(() => ShoppingCartWithItems, {
     name: 'shoppingCartGetByCartId',
     description: 'Get single cart by ID',
     nullable: true,
   })
   async findOneById(@Args('cartId', { type: () => ID }) cartId: string) {
-    return this.shoppingCartsService.findOneById(cartId);
+    return await this.shoppingCartsService.findOneById(cartId);
   }
 
   @Query(() => ShoppingCart, {
@@ -43,19 +46,42 @@ export class ShoppingCartsResolver {
     nullable: true,
   })
   async findOneByUserId(@Args('userId', { type: () => ID }) userId: string) {
-    return this.shoppingCartsService.findOneByUserId(userId);
+    return await this.shoppingCartsService.findOneByUserId(userId);
   }
 
   @Mutation(() => ShoppingCart, { name: 'createShoppingCart', nullable: true })
   async createShoppingCart(@Args('userId') userId: string) {
-    return this.shoppingCartsService.create(userId);
+    return await this.shoppingCartsService.create(userId);
   }
 
-  @Mutation(() => ShoppingCart, { name: 'addToCart', nullable: true })
-  async addToCart(
+  @Mutation(() => ShoppingCartWithItems, {
+    name: 'addToEmptyCart',
+    nullable: true,
+  })
+  async addToEmptyCart(
     @Args('cartId') cartId: string,
     @Args('productItemId') productItemId: string,
   ) {
-    return this.shoppingCartsService.addToCart(cartId, productItemId);
+    return await this.shoppingCartsService.addToEmptyCart(
+      cartId,
+      productItemId,
+    );
+  }
+
+  @Mutation(() => ShoppingCartWithItems, {
+    name: 'updateQtyForCartItem',
+    nullable: true,
+  })
+  async updateQtyForCartItem(
+    @Args('cartId') cartId: string,
+    @Args('cartItemId') cartItemId: string,
+    @Args('qty', { defaultValue: 1, type: () => Int, nullable: true })
+    qty?: number,
+  ) {
+    return await this.shoppingCartsService.addToEmptyCart(
+      cartId,
+      cartItemId,
+      qty,
+    );
   }
 }

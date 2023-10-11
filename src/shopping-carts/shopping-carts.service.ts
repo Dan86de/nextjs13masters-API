@@ -12,11 +12,12 @@ export class ShoppingCartsService {
   }
 
   async findOneById(cartId: string) {
-    return this.prisma.shopping_cart.findUnique({
+    return await this.prisma.shopping_cart.findUnique({
       where: {
         id: cartId,
       },
-      include: {
+      select: {
+        id: true,
         shopping_cart_item: {
           include: {
             product_item: true,
@@ -27,28 +28,34 @@ export class ShoppingCartsService {
   }
 
   async findOneByUserId(userId: string) {
-    return this.prisma.shopping_cart.findFirst({
+    return await this.prisma.shopping_cart.findFirst({
       where: {
         user_id: userId,
+      },
+      select: {
+        id: true,
+        shopping_cart_item: {
+          include: {
+            product_item: true,
+          },
+        },
       },
     });
   }
 
   async create(userId: string) {
-    return this.prisma.shopping_cart.create({
+    return await this.prisma.shopping_cart.create({
       data: {
         user_id: userId,
       },
       select: {
         id: true,
-        shopping_cart_item: true,
       },
     });
   }
 
-  async addToCart(cartId: string, productItemId: string) {
-    // fix this one here
-    return this.prisma.shopping_cart.update({
+  async addToEmptyCart(cartId: string, productItemId: string, qty: number = 1) {
+    return await this.prisma.shopping_cart.update({
       where: {
         id: cartId,
       },
@@ -56,7 +63,48 @@ export class ShoppingCartsService {
         shopping_cart_item: {
           create: {
             product_item_id: productItemId,
-            qty: 1,
+            qty,
+          },
+        },
+      },
+      select: {
+        id: true,
+        shopping_cart_item: {
+          include: {
+            product_item: true,
+          },
+        },
+      },
+    });
+  }
+
+  async updateQtyForCartItem(cartId: string, cartItemId: string, qty: number) {
+    return this.prisma.shopping_cart.update({
+      where: {
+        id: cartId,
+      },
+      data: {
+        shopping_cart_item: {
+          update: {
+            where: {
+              id: cartItemId,
+            },
+            data: {
+              qty: {
+                increment: qty,
+              },
+            },
+          },
+        },
+      },
+      select: {
+        id: true,
+        shopping_cart_item: {
+          select: {
+            id: true,
+            product_item_id: true,
+            product_item: true,
+            qty: true,
           },
         },
       },
