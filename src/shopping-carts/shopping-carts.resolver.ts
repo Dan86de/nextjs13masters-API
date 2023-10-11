@@ -84,4 +84,18 @@ export class ShoppingCartsResolver {
       shoppingCartItemId,
     );
   }
+
+  @Mutation(() => ShoppingCartWithItems, {
+    name: 'reduceItemQtyInCart',
+    nullable: true,
+  })
+  async reduceItemQtyInCart(
+    @Args('cartId') cartId: string,
+    @Args('shoppingCartItemId') shoppingCartItemId: string,
+  ) {
+    return await this.shoppingCartsService.reduceItemQtyInCart(
+      cartId,
+      shoppingCartItemId,
+    );
+  }
 }

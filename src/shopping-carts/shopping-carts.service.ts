@@ -19,6 +19,9 @@ export class ShoppingCartsService {
       select: {
         id: true,
         shopping_cart_item: {
+          orderBy: {
+            id: 'asc',
+          },
           include: {
             product_item: true,
           },
@@ -70,7 +73,9 @@ export class ShoppingCartsService {
               qty,
             },
             update: {
-              qty,
+              qty: {
+                increment: 1,
+              },
             },
           },
         },
@@ -84,6 +89,73 @@ export class ShoppingCartsService {
         },
       },
     });
+  }
+
+  async reduceItemQtyInCart(cartId: string, shoppingCartItemId: string) {
+    const shoppingCart = await this.prisma.shopping_cart.update({
+      where: {
+        id: cartId,
+      },
+      data: {
+        shopping_cart_item: {
+          update: {
+            where: {
+              id: shoppingCartItemId,
+            },
+            data: {
+              qty: {
+                decrement: 1,
+              },
+            },
+          },
+        },
+      },
+      select: {
+        id: true,
+        shopping_cart_item: {
+          include: {
+            product_item: true,
+          },
+        },
+      },
+    });
+
+    if (
+      shoppingCart.shopping_cart_item.find(
+        (item) => item.id === shoppingCartItemId,
+      ).qty === 0
+    ) {
+      return await this.prisma.shopping_cart.update({
+        where: {
+          id: cartId,
+        },
+        data: {
+          shopping_cart_item: {
+            delete: {
+              id: shoppingCartItemId,
+              AND: [
+                {
+                  qty: {
+                    equals: 0,
+                  },
+                },
+                {
+                  cart_id: cartId,
+                },
+              ],
+            },
+          },
+        },
+        select: {
+          id: true,
+          shopping_cart_item: {
+            include: {
+              product_item: true,
+            },
+          },
+        },
+      });
+    } else return shoppingCart;
   }
 
   async removeItemFromCart(cartId: string, shoppingCartItemId: string) {
