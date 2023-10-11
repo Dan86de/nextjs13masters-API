@@ -54,16 +54,24 @@ export class ShoppingCartsService {
     });
   }
 
-  async addToEmptyCart(cartId: string, productItemId: string, qty: number = 1) {
+  async addItemToCart(cartId: string, productItemId: string, qty: number = 1) {
     return await this.prisma.shopping_cart.update({
       where: {
         id: cartId,
       },
       data: {
         shopping_cart_item: {
-          create: {
-            product_item_id: productItemId,
-            qty,
+          upsert: {
+            where: {
+              product_item_id: productItemId,
+            },
+            create: {
+              product_item_id: productItemId,
+              qty,
+            },
+            update: {
+              qty,
+            },
           },
         },
       },
@@ -78,33 +86,23 @@ export class ShoppingCartsService {
     });
   }
 
-  async updateQtyForCartItem(cartId: string, cartItemId: string, qty: number) {
-    return this.prisma.shopping_cart.update({
+  async removeItemFromCart(cartId: string, shoppingCartItemId: string) {
+    return await this.prisma.shopping_cart.update({
       where: {
         id: cartId,
       },
       data: {
         shopping_cart_item: {
-          update: {
-            where: {
-              id: cartItemId,
-            },
-            data: {
-              qty: {
-                increment: qty,
-              },
-            },
+          delete: {
+            id: shoppingCartItemId,
           },
         },
       },
       select: {
         id: true,
         shopping_cart_item: {
-          select: {
-            id: true,
-            product_item_id: true,
+          include: {
             product_item: true,
-            qty: true,
           },
         },
       },

@@ -144,6 +144,6 @@ type Query {
 type Mutation {
   createProduct(createProductInput: String!): Product
   createShoppingCart(userId: String!): ShoppingCart
-  addToEmptyCart(cartId: String!, productItemId: String!): ShoppingCartWithItems
-  updateQtyForCartItem(cartId: String!, cartItemId: String!, qty: Int = 1): ShoppingCartWithItems
+  addItemToCart(cartId: String!, cartItemId: String!, qty: Int = 1): ShoppingCartWithItems
+  removeItemFromCart(cartId: String!, shoppingCartItemId: String!): ShoppingCartWithItems
 }

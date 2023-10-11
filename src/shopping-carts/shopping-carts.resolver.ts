@@ -55,33 +55,33 @@ export class ShoppingCartsResolver {
   }
 
   @Mutation(() => ShoppingCartWithItems, {
-    name: 'addToEmptyCart',
+    name: 'addItemToCart',
     nullable: true,
   })
-  async addToEmptyCart(
-    @Args('cartId') cartId: string,
-    @Args('productItemId') productItemId: string,
-  ) {
-    return await this.shoppingCartsService.addToEmptyCart(
-      cartId,
-      productItemId,
-    );
-  }
-
-  @Mutation(() => ShoppingCartWithItems, {
-    name: 'updateQtyForCartItem',
-    nullable: true,
-  })
-  async updateQtyForCartItem(
+  async addItemToCart(
     @Args('cartId') cartId: string,
     @Args('cartItemId') cartItemId: string,
     @Args('qty', { defaultValue: 1, type: () => Int, nullable: true })
     qty?: number,
   ) {
-    return await this.shoppingCartsService.addToEmptyCart(
+    return await this.shoppingCartsService.addItemToCart(
       cartId,
       cartItemId,
       qty,
+    );
+  }
+
+  @Mutation(() => ShoppingCartWithItems, {
+    name: 'removeItemFromCart',
+    nullable: true,
+  })
+  async removeItemFromCart(
+    @Args('cartId') cartId: string,
+    @Args('shoppingCartItemId') shoppingCartItemId: string,
+  ) {
+    return await this.shoppingCartsService.removeItemFromCart(
+      cartId,
+      shoppingCartItemId,
     );
   }
 }
