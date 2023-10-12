@@ -60,11 +60,20 @@ export class ShoppingCartsService {
   async addItemToCart(cartId: string, productItemId: string, qty: number = 1) {
     console.log('ADD ITEM TO CART :', { cartId, productItemId, qty });
 
-    return await this.prisma.shopping_cart_item.create({
-      data: {
+    await this.prisma.shopping_cart_item.upsert({
+      where: {
+        cart_id: cartId,
+        product_item_id: productItemId,
+      },
+      create: {
         qty,
         cart_id: cartId,
         product_item_id: productItemId,
+      },
+      update: {
+        qty: {
+          increment: 1,
+        },
       },
       select: {
         id: true,
