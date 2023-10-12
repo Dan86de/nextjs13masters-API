@@ -1,6 +1,7 @@
 import { Args, ID, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import {
   ShoppingCart,
+  ShoppingCartItem,
   ShoppingCartWithItems,
 } from './entities/shopping-cart.entity';
 import { ShoppingCartsService } from './shopping-carts.service';
@@ -54,19 +55,19 @@ export class ShoppingCartsResolver {
     return await this.shoppingCartsService.create(userId);
   }
 
-  @Mutation(() => ShoppingCartWithItems, {
+  @Mutation(() => ShoppingCartItem, {
     name: 'addItemToCart',
     nullable: true,
   })
   async addItemToCart(
     @Args('cartId') cartId: string,
-    @Args('cartItemId') cartItemId: string,
+    @Args('productItemId') productItemId: string,
     @Args('qty', { defaultValue: 1, type: () => Int, nullable: true })
     qty?: number,
   ) {
     return await this.shoppingCartsService.addItemToCart(
       cartId,
-      cartItemId,
+      productItemId,
       qty,
     );
   }
@@ -82,6 +83,21 @@ export class ShoppingCartsResolver {
     return await this.shoppingCartsService.removeItemFromCart(
       cartId,
       shoppingCartItemId,
+    );
+  }
+
+  @Mutation(() => ShoppingCartWithItems, {
+    name: 'incrementItemQtyInCart',
+    nullable: true,
+  })
+  async incrementItemQtyInCart(
+    @Args('shoppingCartItemId') shoppingCartItemId: string,
+    @Args('qty', { defaultValue: 1, type: () => Int, nullable: true })
+    qty?: number,
+  ) {
+    return await this.shoppingCartsService.incrementItemQtyInCart(
+      shoppingCartItemId,
+      qty,
     );
   }
 

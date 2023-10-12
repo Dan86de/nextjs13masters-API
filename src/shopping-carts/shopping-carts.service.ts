@@ -58,40 +58,59 @@ export class ShoppingCartsService {
   }
 
   async addItemToCart(cartId: string, productItemId: string, qty: number = 1) {
-    return await this.prisma.shopping_cart.update({
+    console.log('ADD ITEM TO CART :', { cartId, productItemId, qty });
+
+    return await this.prisma.shopping_cart_item.create({
+      data: {
+        qty,
+        cart_id: cartId,
+        product_item_id: productItemId,
+      },
+      select: {
+        id: true,
+        cart_id: true,
+        product_item: true,
+        product_item_id: true,
+        qty: true,
+      },
+    });
+  }
+
+  async removeItemFromCart(cartId: string, shoppingCartItemId: string) {
+    console.log('REMOVE ITEM FROM CART :', { cartId, shoppingCartItemId });
+    return await this.prisma.shopping_cart_item.delete({
       where: {
-        id: cartId,
+        id: shoppingCartItemId,
+      },
+      select: {
+        id: true,
+      },
+    });
+  }
+
+  async incrementItemQtyInCart(shoppingCartItemId: string, qty: number = 1) {
+    console.log('INCREMENT ITEM QTY IN CART :', {
+      shoppingCartItemId,
+      qty,
+    });
+    return this.prisma.shopping_cart_item.update({
+      where: {
+        id: shoppingCartItemId,
       },
       data: {
-        shopping_cart_item: {
-          upsert: {
-            where: {
-              product_item_id: productItemId,
-            },
-            create: {
-              product_item_id: productItemId,
-              qty,
-            },
-            update: {
-              qty: {
-                increment: 1,
-              },
-            },
-          },
+        qty: {
+          increment: qty,
         },
       },
       select: {
         id: true,
-        shopping_cart_item: {
-          include: {
-            product_item: true,
-          },
-        },
       },
     });
   }
 
   async reduceItemQtyInCart(cartId: string, shoppingCartItemId: string) {
+    console.log('REDUCE ITEM QTY IN CART :', { cartId, shoppingCartItemId });
+
     const shoppingCart = await this.prisma.shopping_cart.update({
       where: {
         id: cartId,
@@ -119,6 +138,12 @@ export class ShoppingCartsService {
         },
       },
     });
+
+    console.dir(
+      shoppingCart.shopping_cart_item.find(
+        (item) => item.id === shoppingCartItemId,
+      ),
+    );
 
     if (
       shoppingCart.shopping_cart_item.find(
@@ -148,36 +173,8 @@ export class ShoppingCartsService {
         },
         select: {
           id: true,
-          shopping_cart_item: {
-            include: {
-              product_item: true,
-            },
-          },
         },
       });
-    } else return shoppingCart;
-  }
-
-  async removeItemFromCart(cartId: string, shoppingCartItemId: string) {
-    return await this.prisma.shopping_cart.update({
-      where: {
-        id: cartId,
-      },
-      data: {
-        shopping_cart_item: {
-          delete: {
-            id: shoppingCartItemId,
-          },
-        },
-      },
-      select: {
-        id: true,
-        shopping_cart_item: {
-          include: {
-            product_item: true,
-          },
-        },
-      },
-    });
+    } else return { id: shoppingCart.id };
   }
 }
