@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, variation, variation_option } from '@prisma/client';
 import * as dotenv from 'dotenv';
 
 const prisma = new PrismaClient();
@@ -37,15 +37,11 @@ async function createUserAndCategories() {
   ];
 
   for (let i = 0; i < numOfFakeCategories; i++) {
-    console.log('Category creation process started....');
     await prisma.product_category.create({
       data: {
         ...fakeCategoriesSeedData[i],
       },
     });
-    console.log(
-      `Category ${fakeCategoriesSeedData[i].category_name} created with id: ${fakeCategoriesSeedData[i].id}`,
-    );
   }
 
   // footwear size variation seed
@@ -179,15 +175,11 @@ async function createUserAndCategories() {
   ];
 
   for (let i = 0; i < numOfFakeCollections; i++) {
-    console.log('collection creating ....');
     await prisma.collection.create({
       data: {
         ...fakeColletionsSeedData[i],
       },
     });
-    console.log(
-      `Collection ${fakeColletionsSeedData[i].name} created with id: ${fakeColletionsSeedData[i].id}`,
-    );
   }
 }
 
@@ -826,12 +818,8 @@ async function createProducts() {
         description: fakeProductsSeedData[i].description,
         name: fakeProductsSeedData[i].name,
         product_image: fakeProductsSeedData[i].product_image,
-        // ...fakeProductsSeedData[i],
       },
     });
-    console.log(
-      `Product created ${fakeProductsSeedData[i].id}, name: ${fakeProductsSeedData[i].name}`,
-    );
   }
 }
 
@@ -847,9 +835,7 @@ async function createProductCollectionsAndConnectProducts() {
             .productId,
       },
     });
-    console.log(
-      `Product category created ${fakeProductsSeedData[i].id}, name: ${fakeProductsSeedData[i].name}`,
-    );
+
     await prisma.product.update({
       where: { id: fakeProductsSeedData[i].id },
       data: {
@@ -873,38 +859,233 @@ async function createProductCollectionsAndConnectProducts() {
 async function createProductItems() {
   for (let i = 0; i < fakeProductsSeedData.length; i++) {
     const currentProduct = fakeProductsSeedData[i];
-    const productCategoryId = fakeProductsSeedData[i].category_id;
+    const productCategoryId = currentProduct.category_id;
     const categoryVariations = await prisma.variation.findMany({
       where: {
         product_categoryId: productCategoryId,
       },
+      include: {
+        variation_options: true,
+      },
     });
-    console.log('CATEGORY VARIATIONS', categoryVariations);
-    for (let i = 0; i < categoryVariations.length; i++) {
-      const productVariaitonOptions = await prisma.variation_option.findMany({
-        where: {
-          variation_id: categoryVariations[i].id,
-        },
-      });
-      console.log('PRODUCT VARIATION OPTIONS', productVariaitonOptions);
-      for (let i = 0; i < productVariaitonOptions.length; i++) {
-        const productItemId = faker.string.uuid();
+
+    interface VariationWithVariationOptions extends variation {
+      variation_options: variation_option[];
+    }
+
+    function getPermutations(arrays: string[][]): string[][] {
+      // Base case: if there's only one array left, return it
+      if (arrays.length === 1) {
+        return arrays[0].map((item) => [item]);
+      }
+
+      // Recursive case: get the permutations for the rest of the arrays
+      const [first, ...rest] = arrays;
+      const restPermutations = getPermutations(rest);
+
+      // Combine the first array with the permutations of the rest
+      const permutations: string[][] = [];
+      for (const item of first) {
+        for (const restPermutation of restPermutations) {
+          permutations.push([item, ...restPermutation]);
+        }
+      }
+
+      return permutations;
+    }
+
+    async function generateProductItems(
+      categoryVariations: VariationWithVariationOptions[],
+      prefix = [],
+    ) {
+      if (categoryVariations.length === 0) {
+        return prefix;
+      }
+
+      const numOfCategoryVariations = categoryVariations.length;
+
+      const permutationsBase: string[][] = [];
+
+      for (let i = 0; i < numOfCategoryVariations; i++) {
+        permutationsBase.push([]);
+      }
+
+      if (categoryVariations.length === 1) {
+        permutationsBase[0] = categoryVariations[0].variation_options.map(
+          (option) => option.id,
+        );
+      } else {
+        for (let i = 0; i < categoryVariations.length; i++) {
+          const currentVariation = categoryVariations[i];
+          const { variation_options } = currentVariation;
+          if (i === 0) {
+            permutationsBase[0] = variation_options.map((option) => option.id);
+          } else
+            variation_options.map(
+              (option) =>
+                (permutationsBase[i] = [...permutationsBase[i], option.id]),
+            );
+        }
+      }
+
+      const permutations = getPermutations(permutationsBase);
+
+      let productConfigurationsCreationData: {
+        create:
+          | { variation_option_id: string }
+          | { variation_option_id: string }[];
+      };
+
+      for (let i = 0; i < permutations.length; i++) {
+        switch (permutations[i].length) {
+          case 1:
+            productConfigurationsCreationData = {
+              create: {
+                variation_option_id: permutations[i][0],
+              },
+            };
+            break;
+          case 2:
+            productConfigurationsCreationData = {
+              create: [
+                {
+                  variation_option_id: permutations[i][0],
+                },
+                {
+                  variation_option_id: permutations[i][1],
+                },
+              ],
+            };
+            break;
+
+          default:
+            productConfigurationsCreationData = undefined;
+        }
+
+        const allColorOptions = await prisma.variation_option.findMany({
+          where: {
+            variation: {
+              name: 'color',
+            },
+          },
+        });
+
+        const findMatchingOptions = (
+          colorOptions: {
+            id: string;
+            variation_id: string;
+            value: string;
+          }[],
+          configurations: {
+            create:
+              | { variation_option_id: string }
+              | { variation_option_id: string }[];
+          },
+        ): {
+          id: string;
+          variation_id: string;
+          value: string;
+        } => {
+          let configVariationOptionIds: string[] = [];
+
+          // Check whether 'create' is an array or a single object, and extract variation_option_id(s)
+          if (Array.isArray(configurations.create)) {
+            configVariationOptionIds = configurations.create.map(
+              (config) => config.variation_option_id,
+            );
+          } else {
+            configVariationOptionIds.push(
+              configurations.create.variation_option_id,
+            );
+          }
+
+          // Filter color options to only those that have a matching variation_option_id
+          return colorOptions.filter((option) =>
+            configVariationOptionIds.includes(option.id),
+          )[0];
+        };
+
+        function removeWebpExtension(url: string): string {
+          return url.replace(/\.webp$/, '');
+        }
+
+        const getImageForProductItem = () => {
+          const matchingOption = findMatchingOptions(
+            allColorOptions,
+            productConfigurationsCreationData,
+          );
+          const currentProductImage = removeWebpExtension(
+            currentProduct.product_image,
+          );
+          if (matchingOption) {
+            return `${currentProductImage}_${matchingOption.value}.webp`;
+          } else return currentProduct.product_image;
+        };
+
+        // {
+        //   create: [
+        //     { variation_option_id: '234a8f12-846a-4124-a61f-733fe79e5da6' },
+        //     { variation_option_id: 'f0a728a5-6d03-4f94-91bf-4a6e128a7131' }
+        //   ]
+        // }
+
+        // {
+        //   create: { variation_option_id: 'cda27754-e9f1-49a7-96dc-ac995017033a' }
+        // }
+
+        const generateSKU = async (productConfigurationsCreationData: {
+          create:
+            | {
+                variation_option_id: string;
+              }
+            | {
+                variation_option_id: string;
+              }[];
+        }) => {
+          let configurationOptionsData: variation_option[] | variation_option;
+
+          // Check whether 'create' is an array or a single object, and extract variation_option_id(s)
+          if (Array.isArray(productConfigurationsCreationData.create)) {
+            configurationOptionsData = await prisma.variation_option.findMany({
+              where: {
+                OR: productConfigurationsCreationData.create.map((item) => ({
+                  id: item.variation_option_id,
+                })),
+              },
+            });
+          } else {
+            configurationOptionsData = await prisma.variation_option.findUnique(
+              {
+                where: {
+                  id: productConfigurationsCreationData.create
+                    .variation_option_id,
+                },
+              },
+            );
+          }
+
+          if (Array.isArray(configurationOptionsData)) {
+            return configurationOptionsData
+              .map((option) => option.value.toUpperCase())
+              .join('_');
+          }
+          return configurationOptionsData.value.toUpperCase();
+        };
+
         await prisma.product_item.create({
           data: {
-            id: productItemId,
-            price: Number(faker.commerce.price({ min: 100 })),
-            SKU: faker.string.sample(12),
-            qty_in_stock: faker.number.int({ min: 0, max: 50 }),
             product_id: currentProduct.id,
-            product_configurations: {
-              create: {
-                variation_option_id: productVariaitonOptions[i].id,
-              },
-            },
+            price: Number(faker.commerce.price({ min: 500 })),
+            SKU: await generateSKU(productConfigurationsCreationData),
+            qty_in_stock: faker.number.int({ min: 0, max: 50 }),
+            product_configurations: productConfigurationsCreationData,
+            product_images: [getImageForProductItem()],
           },
         });
       }
     }
+
+    generateProductItems(categoryVariations);
   }
 }
 

@@ -6,6 +6,13 @@ export class CategoriesService {
   constructor(private prisma: PrismaService) {}
   async findAll(skip: number = 0, take: number = 20) {
     return await this.prisma.product_category.findMany({
+      include: {
+        variations: {
+          include: {
+            variation_options: true,
+          },
+        },
+      },
       skip,
       take,
     });
@@ -25,6 +32,11 @@ export class CategoriesService {
       where: { category_name: name },
       include: {
         products: true,
+        variations: {
+          include: {
+            variation_options: true,
+          },
+        },
       },
     });
   }

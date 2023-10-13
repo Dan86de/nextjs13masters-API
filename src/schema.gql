@@ -2,34 +2,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type VariationOption {
-  id: String!
-  value: String!
-  product_categoryId: String!
-}
-
-"""Product configuration model"""
-type ProductConfiguration {
-  product: ProductItem!
-  product_item_id: String!
-  variation_option: VariationOption!
-  variation_option_id: String!
-}
-
-"""Product category model"""
-type ProductCategory {
-  id: ID!
-  parent_category_id: String
-  category_name: String!
-  variations: [Variation!]!
-}
-
-type Variation {
-  id: String!
-  name: String!
-  variation_options: [VariationOption!]!
-}
-
 """Collection model."""
 type Collection {
   """Collection id."""
@@ -80,6 +52,57 @@ type ProductItem {
   product_images: [String!]!
 }
 
+type VariationOption {
+  id: String!
+  value: String!
+  product_categoryId: String!
+}
+
+"""Product configuration model"""
+type ProductConfiguration {
+  product: ProductItem!
+  product_item_id: String!
+  variation_option: VariationOption!
+  variation_option_id: String!
+}
+
+"""Product category model"""
+type ProductCategory {
+  id: ID!
+  parent_category_id: String
+  category_name: String!
+  variations: [Variation!]!
+}
+
+type Variation {
+  id: String!
+  name: String!
+  variation_options: [VariationOption!]!
+}
+
+"""Shopping cart model."""
+type ShoppingCart {
+  """Shopping cart id."""
+  id: ID!
+}
+
+"""Shopping cart with items."""
+type ShoppingCartWithItems {
+  """Shopping cart id."""
+  id: ID!
+  shopping_cart_item: [ShoppingCartItem!]!
+}
+
+"""Shopping cart item model."""
+type ShoppingCartItem {
+  """Shopping cart item id."""
+  id: ID!
+  cart_id: String!
+  product_item: ProductItem!
+  product_item_id: String!
+  qty: Float!
+}
+
 type Query {
   """Get all products"""
   products(skip: Int = 0, take: Int = 20): [Product!]!
@@ -107,8 +130,22 @@ type Query {
 
   """Get single collection by name"""
   collection(collectionName: String!): Collection
+
+  """Get all shopping carts"""
+  shoppingCarts(skip: Int = 0, take: Int = 20): [ShoppingCart!]!
+
+  """Get single cart by ID"""
+  shoppingCartGetByCartId(cartId: ID!): ShoppingCartWithItems
+
+  """Get single cart by user ID"""
+  shoppingCartGetByUserId(userId: ID!): ShoppingCart
 }
 
 type Mutation {
   createProduct(createProductInput: String!): Product
+  createShoppingCart(userId: String!): ShoppingCart
+  addItemToCart(cartId: String!, productItemId: String!, qty: Int = 1): ShoppingCartItem
+  removeItemFromCart(cartId: String!, shoppingCartItemId: String!): ShoppingCartWithItems
+  incrementItemQtyInCart(shoppingCartItemId: String!, qty: Int = 1): ShoppingCartWithItems
+  reduceItemQtyInCart(cartId: String!, shoppingCartItemId: String!): ShoppingCartWithItems
 }

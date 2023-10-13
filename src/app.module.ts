@@ -1,12 +1,13 @@
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
+import { GraphQLModule } from '@nestjs/graphql';
+import { join } from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { GraphQLModule } from '@nestjs/graphql';
-import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { join } from 'path';
-import { ProductsModule } from './products/products.module';
 import { CategoriesModule } from './categories/categories.module';
 import { CollectionsModule } from './collections/collections.module';
+import { ProductsModule } from './products/products.module';
+import { ShoppingCartsModule } from './shopping-carts/shopping-carts.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { CollectionsModule } from './collections/collections.module';
     ProductsModule,
     CategoriesModule,
     CollectionsModule,
+    ShoppingCartsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
