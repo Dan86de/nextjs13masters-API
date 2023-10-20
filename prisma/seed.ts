@@ -1022,17 +1022,6 @@ async function createProductItems() {
           } else return currentProduct.product_image;
         };
 
-        // {
-        //   create: [
-        //     { variation_option_id: '234a8f12-846a-4124-a61f-733fe79e5da6' },
-        //     { variation_option_id: 'f0a728a5-6d03-4f94-91bf-4a6e128a7131' }
-        //   ]
-        // }
-
-        // {
-        //   create: { variation_option_id: 'cda27754-e9f1-49a7-96dc-ac995017033a' }
-        // }
-
         const generateSKU = async (productConfigurationsCreationData: {
           create:
             | {
